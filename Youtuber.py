@@ -4,9 +4,6 @@ Created on Thu Sep 28 21:44:26 2017
 
 @author: Alex
 """
-
-# Ads matter?
-
 # Youtube Scraping
 
 import requests
