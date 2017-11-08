@@ -18,26 +18,15 @@ import time
 
 df = pd.DataFrame()
 
-'''
-
-
-    
-
-
-
-
-'''
 start = time.time()
 
-# Whats scrapy?
+query = "python"
 
 rootURL = 'https://www.youtube.com'
 socialblade = 'https://socialblade.com/youtube'
-URLTail = '/results?sp=EgIQAVAU&q=python'
+URLTail = '/results?sp=EgIQAVAU&q=' & query
 
 pool_size = 5
-
-query = ""
 
 searchResponse = requests.get(rootURL + URLTail)
 searchSoup = bs4.BeautifulSoup(searchResponse.text, "lxml")
@@ -97,7 +86,6 @@ def getVidStats(video):
                     youtubers[channel]["TotalViews"] = int(socialSoup.select('#youtube-stats-header-views')[0].get_text())
                     youtubers[channel]["Category"] = socialSoup.select('#youtube-stats-header-channeltype')[0].get_text().capitalize()
                     youtubers[channel]["CreationDate"] = headerInfo[-1].select('span:nth-of-type(2)')[0].get_text()
-        
                 else:
                     youtubers[channel]["MonthViews"] = -1 
                     youtubers[channel]["MonthSubs"] = -1
@@ -123,9 +111,6 @@ for x in range(pool_size):
 
 q.join()
 
-#for video in videoData:
-    #getVidStats(video)
-
 
 def printList():
     global youtubers, youtuberKeys
@@ -148,12 +133,4 @@ def getDataFrame():
     return pd.DataFrame(arr)
     
 
-#printList()
-
-
-
-#df = getDataFrame()
-#df.set_index('name', inplace=True)
-#print(df)
 print('Job took:', time.time()-start)
-#print(df.columns)
